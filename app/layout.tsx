@@ -81,9 +81,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" style={{ backgroundColor: "#f3f4f6" }}>
       <body
         className={`bg-gray-100 text-gray-200 antialiased min-h-screen ${font.className} `}
+        style={{ backgroundColor: "#f3f4f6" }}
       >
         <SmoothScrollProvider>
           <ResponsiveNav />
