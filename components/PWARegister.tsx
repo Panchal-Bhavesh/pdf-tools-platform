@@ -8,11 +8,13 @@ export default function PWARegister() {
 
     const register = async () => {
       try {
+        // Unregister any existing service workers to ensure a clean install
+        const regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map((r) => r.unregister()));
+
         const reg = await navigator.serviceWorker.register("/sw.js");
-        // eslint-disable-next-line no-console
         console.log("Service worker registered:", reg);
       } catch (err) {
-        // eslint-disable-next-line no-console
         console.warn("Service worker registration failed:", err);
       }
     };
