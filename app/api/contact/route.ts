@@ -54,11 +54,33 @@ export async function POST(req: Request) {
       `,
     });
 
-    return new Response(JSON.stringify({ success: true }), { status: 200 });
+    return jsonResponse({ success: true });
   } catch (error) {
     console.error("Email Error:", error);
-    return new Response(JSON.stringify({ error: "Failed to send email" }), {
-      status: 500,
-    });
+    return jsonResponse({ error: "Failed to send email" }, 500);
   }
+}
+
+// Respond to preflight requests and attach CORS headers to JSON responses
+function corsHeaders() {
+  // You can restrict this to specific origins by setting ALLOWED_ORIGINS in env
+  const allowed = process.env.ALLOWED_ORIGINS ?? "*";
+  return {
+    "Access-Control-Allow-Origin": allowed,
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  };
+}
+
+function jsonResponse(body: unknown, status = 200) {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    ...corsHeaders(),
+  };
+  return new Response(JSON.stringify(body), { status, headers });
+}
+
+export async function OPTIONS() {
+  // Reply to CORS preflight
+  return new Response(null, { status: 204, headers: corsHeaders() });
 }

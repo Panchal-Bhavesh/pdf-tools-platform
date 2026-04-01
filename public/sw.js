@@ -23,22 +23,45 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  // Network-first strategy with cache fallback
+  // Bypass non-GET and API requests so POSTs / form submissions are not cached
+  const req = event.request;
+  const url = new URL(req.url);
+
+  if (req.method !== "GET" || url.pathname.startsWith("/api/")) {
+    // For POSTs or API calls: try network, return a JSON fallback if offline
+    event.respondWith(
+      fetch(req).catch(
+        () =>
+          new Response(JSON.stringify({ error: "Network unavailable" }), {
+            status: 503,
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            },
+          }),
+      ),
+    );
+    return;
+  }
+
+  // Network-first strategy with cache fallback for GET navigation / assets
   event.respondWith(
-    fetch(event.request)
+    fetch(req)
       .then((res) => {
-        // Optionally update cache for same-origin GET requests
-        if (
-          event.request.method === "GET" &&
-          new URL(event.request.url).origin === self.location.origin
-        ) {
-          const copy = res.clone();
-          caches
-            .open(CACHE_NAME)
-            .then((cache) => cache.put(event.request, copy));
+        // Update cache for same-origin GET requests
+        if (new URL(req.url).origin === self.location.origin) {
+          try {
+            const copy = res.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
+          } catch (e) {
+            // Silently ignore cache errors (opaque responses, etc.)
+          }
         }
         return res;
       })
-      .catch(() => caches.match(event.request)),
+      .catch(async () => {
+        const cached = await caches.match(req);
+        return cached || new Response("Offline", { status: 503 });
+      }),
   );
 });
