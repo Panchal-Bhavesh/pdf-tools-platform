@@ -2,7 +2,14 @@
 import React, { useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { PDFDocument } from "pdf-lib";
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import {
+  DndContext,
+  closestCenter,
+  TouchSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
@@ -24,6 +31,15 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
   const [error, setError] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Enable both pointer (desktop) and touch (mobile) sensors
+  const pointerSensor = useSensor(PointerSensor, {
+    activationConstraint: { distance: 5 },
+  });
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: { delay: 150, tolerance: 5 },
+  });
+  const sensors = useSensors(pointerSensor, touchSensor);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -85,10 +101,13 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
     try {
       setError(null);
       setLoading(true);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/pdf/reorder`, {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/pdf/reorder`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
       if (!res.ok) throw new Error("Reorder failed");
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
@@ -98,7 +117,8 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
       a.click();
       URL.revokeObjectURL(url);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "An unknown error occurred";
+      const errorMessage =
+        err instanceof Error ? err.message : "An unknown error occurred";
       setError(errorMessage);
     } finally {
       setLoading(false);
@@ -167,6 +187,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
               </p>
             </div>
             <DndContext
+              sensors={sensors}
               collisionDetection={closestCenter}
               onDragEnd={handleDragEnd}
             >

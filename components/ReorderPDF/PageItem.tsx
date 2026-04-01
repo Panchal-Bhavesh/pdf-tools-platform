@@ -15,6 +15,7 @@ export default function SortablePage({ id, file }: props) {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    touchAction: "none" as const,
   };
 
   return (
