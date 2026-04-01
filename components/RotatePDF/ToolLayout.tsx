@@ -74,7 +74,9 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
       });
 
       const pdfBytes = await pdf.save();
-      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const blob = new Blob([pdfBytes as unknown as BlobPart], {
+        type: "application/pdf",
+      });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -86,7 +88,8 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
       setFile(null);
       setPageCount(0);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Unknown error occurred";
+      const errorMessage =
+        err instanceof Error ? err.message : "Unknown error occurred";
       console.error("Rotation error:", err);
       setError(`Failed to rotate PDF: ${errorMessage}`);
     } finally {
@@ -103,7 +106,13 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
           {title}
         </h1>
         <p className="text-gray-700 text-2xl mx-auto">{description}</p>
-        <input ref={fileRef} type="file" accept=".pdf" hidden onChange={handleUpload} />
+        <input
+          ref={fileRef}
+          type="file"
+          accept=".pdf"
+          hidden
+          onChange={handleUpload}
+        />
         {!file ? (
           <div className="relative max-w-5xl p-32 mx-auto bg-white mt-10 border rounded-2xl shadow-sm">
             <div
@@ -122,7 +131,9 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
           <div className="max-w-5xl mx-auto mt-10 bg-white rounded-2xl border p-6 text-left">
             <div className="flex flex-wrap justify-between items-center border p-3 rounded-lg">
               <div>
-                <p className="text-gray-700 font-medium text-sm sm:text-lg">{file.name}</p>
+                <p className="text-gray-700 font-medium text-sm sm:text-lg">
+                  {file.name}
+                </p>
                 <p className="text-sm text-gray-500">
                   {(file.size / 1024).toFixed(2)} KB &mdash; {pageCount}{" "}
                   {pageCount === 1 ? "page" : "pages"}

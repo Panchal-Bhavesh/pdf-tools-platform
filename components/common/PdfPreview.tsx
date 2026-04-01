@@ -50,7 +50,7 @@ export default function PdfPreview({
         const ctx = canvas.getContext("2d");
         if (!ctx) throw new Error("Failed to get canvas context");
 
-        await page.render({ canvasContext: ctx, viewport }).promise;
+        await page.render({ canvas, canvasContext: ctx, viewport }).promise;
       } catch {
         if (!cancelled) setRenderError(true);
       } finally {
