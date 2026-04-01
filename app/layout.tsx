@@ -5,6 +5,7 @@ import ResponsiveNav from "@/components/Navbar/ResponsiveNav";
 import Footer from "@/components/Footer";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import ScrollToTop from "@/components/Helper/ScrollToTop";
+import PWARegister from "@/components/PWARegister";
 
 const font = Rethink_Sans({
   weight: ["400", "500", "600", "700", "800"],
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     "pdf to excel",
   ],
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://pagelypdf.com"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://pagelypdf.com",
   ),
   manifest: "/manifest.json",
   appleWebApp: {
@@ -85,6 +86,7 @@ export default function RootLayout({
       >
         <SmoothScrollProvider>
           <ResponsiveNav />
+          <PWARegister />
           <main className="flex-1">{children}</main>
           <Footer />
           <ScrollToTop />
