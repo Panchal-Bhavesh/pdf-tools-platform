@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
+import { useFeedback } from "@/components/FeedbackProvider";
 
 type ToolLayoutProps = {
   title: string;
@@ -20,6 +21,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
   const [error, setError] = useState<string | null>(null);
 
   const fileRef = useRef<HTMLInputElement>(null);
+  const { openFeedback } = useFeedback();
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -96,6 +98,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       setFile(null);
+      openFeedback("PPT to PDF");
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Unknown error occurred";

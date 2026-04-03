@@ -7,6 +7,7 @@ import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import ScrollToTop from "@/components/Helper/ScrollToTop";
 import PWARegister from "@/components/PWARegister";
 import InstallPrompt from "@/components/InstallPrompt";
+import { FeedbackProvider } from "@/components/FeedbackProvider";
 
 const font = Rethink_Sans({
   weight: ["400", "500", "600", "700", "800"],
@@ -87,12 +88,14 @@ export default function RootLayout({
         style={{ backgroundColor: "#f3f4f6" }}
       >
         <SmoothScrollProvider>
-          <ResponsiveNav />
-          <PWARegister />
-          <InstallPrompt />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <ScrollToTop />
+          <FeedbackProvider>
+            <ResponsiveNav />
+            <PWARegister />
+            <InstallPrompt />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <ScrollToTop />
+          </FeedbackProvider>
         </SmoothScrollProvider>
       </body>
     </html>

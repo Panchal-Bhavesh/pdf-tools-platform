@@ -2,11 +2,13 @@
 import { FaHeart } from "react-icons/fa";
 import ContactModal from "./ContactModal";
 import TermsModal from "./TermsModal";
+import { useFeedback } from "./FeedbackProvider";
 import { useState } from "react";
 
 export default function Footer() {
   const [openContact, setOpenContact] = useState(false);
   const [openTerms, setOpenTerms] = useState(false);
+  const { openFeedback } = useFeedback();
 
   return (
     <>
@@ -28,6 +30,13 @@ export default function Footer() {
               className="text-sm text-gray-400 hover:text-white transition cursor-pointer"
             >
               Terms &amp; Conditions
+            </button>
+            <span className="text-gray-600">|</span>
+            <button
+              onClick={() => openFeedback()}
+              className="text-sm text-gray-400 hover:text-white transition cursor-pointer"
+            >
+              Feedback
             </button>
             <span className="text-gray-600">|</span>
             <button

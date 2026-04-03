@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
 import { FaTrash } from "react-icons/fa";
+import { useFeedback } from "@/components/FeedbackProvider";
 
 type CompressionMode = "extreme" | "recommended" | "less";
 
@@ -25,6 +26,7 @@ export default function ToolLayout({
   const [error, setError] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { openFeedback } = useFeedback();
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -115,6 +117,7 @@ export default function ToolLayout({
     setProgress(0);
     setMode("recommended");
     setError(null);
+    openFeedback("Compress PDF");
   };
 
   const reduction =

@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { FaTrash, FaEye, FaEyeSlash } from "react-icons/fa";
+import { useFeedback } from "@/components/FeedbackProvider";
 
 type ToolLayoutProps = {
   title: string;
@@ -17,6 +18,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const fileRef = useRef<HTMLInputElement>(null);
+  const { openFeedback } = useFeedback();
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -101,6 +103,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
       URL.revokeObjectURL(url);
       setFile(null);
       setPassword("");
+      openFeedback("Unlock PDF");
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Unknown error occurred";

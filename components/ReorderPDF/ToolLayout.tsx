@@ -2,6 +2,7 @@
 import React, { useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { PDFDocument } from "pdf-lib";
+import { useFeedback } from "@/components/FeedbackProvider";
 import {
   DndContext,
   closestCenter,
@@ -31,6 +32,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
   const [error, setError] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { openFeedback } = useFeedback();
 
   // Enable both pointer (desktop) and touch (mobile) sensors
   const pointerSensor = useSensor(PointerSensor, {
@@ -116,6 +118,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
       a.download = "reordered.pdf";
       a.click();
       URL.revokeObjectURL(url);
+      openFeedback("Reorder PDF");
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "An unknown error occurred";

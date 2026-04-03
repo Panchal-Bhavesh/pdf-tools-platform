@@ -2,6 +2,7 @@
 import React, { useRef, useState } from "react";
 import { FaTrash, FaEye, FaEyeSlash } from "react-icons/fa";
 import { PDFDocument } from "pdf-lib";
+import { useFeedback } from "@/components/FeedbackProvider";
 
 type ToolLayoutProps = {
   title: string;
@@ -20,6 +21,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const fileRef = useRef<HTMLInputElement>(null);
+  const { openFeedback } = useFeedback();
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -126,6 +128,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
       setPageCount(0);
       setPassword("");
       setConfirmPassword("");
+      openFeedback("Protect PDF");
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Unknown error occurred";

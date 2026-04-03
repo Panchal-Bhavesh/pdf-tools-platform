@@ -2,6 +2,7 @@
 import React, { useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { PDFDocument } from "pdf-lib";
+import { useFeedback } from "@/components/FeedbackProvider";
 import PdfPreview from "../common/PdfPreview";
 
 type ToolLayoutProps = {
@@ -20,6 +21,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
   const [error, setError] = useState<string | null>(null);
 
   const fileRef = useRef<HTMLInputElement | null>(null);
+  const { openFeedback } = useFeedback();
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -111,6 +113,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
     setResultBlob(null);
     setPagesToDelete([]);
     setError(null);
+    openFeedback("Delete PDF Pages");
   };
 
   const openFilePicker = () => {

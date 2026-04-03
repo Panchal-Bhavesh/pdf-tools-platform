@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
 import { FaTrash } from "react-icons/fa";
+import { useFeedback } from "@/components/FeedbackProvider";
 import { PDFDocument } from "pdf-lib";
 import PdfPreview from "../common/PdfPreview";
 
@@ -20,6 +21,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
   const [dragActive, setDragActive] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { openFeedback } = useFeedback();
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -130,6 +132,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
     setPages([]);
     setProgress(0);
     setError(null);
+    openFeedback("Extract PDF");
   };
 
   return (

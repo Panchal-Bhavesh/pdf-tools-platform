@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
+import { useFeedback } from "@/components/FeedbackProvider";
 
 type ToolLayoutProps = {
   title: string;
@@ -19,6 +20,7 @@ export default function ToolLayout({
   const [mergedBlob, setMergedBlob] = useState<Blob | null>(null);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { openFeedback } = useFeedback();
 
   const MAX_FILES = 20;
   const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
@@ -78,6 +80,7 @@ export default function ToolLayout({
     window.URL.revokeObjectURL(url);
     setMergedBlob(null);
     setFiles([]);
+    openFeedback("Merge PDF");
   };
 
   const handleRemove = (index: number) => {

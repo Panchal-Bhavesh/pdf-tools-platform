@@ -2,6 +2,7 @@
 import React, { useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { PDFDocument } from "pdf-lib";
+import { useFeedback } from "@/components/FeedbackProvider";
 
 type ToolLayoutProps = {
   title: string;
@@ -17,6 +18,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
   const [error, setError] = useState<string | null>(null);
 
   const fileRef = useRef<HTMLInputElement>(null);
+  const { openFeedback } = useFeedback();
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -106,6 +108,7 @@ const ToolLayout = ({ title, description, children }: ToolLayoutProps) => {
       URL.revokeObjectURL(url);
       setFile(null);
       setPageCount(0);
+      openFeedback("PDF to Excel");
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Unknown error occurred";

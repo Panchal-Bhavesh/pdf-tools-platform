@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { FaTrash, FaPlus } from "react-icons/fa";
+import { useFeedback } from "@/components/FeedbackProvider";
 import ModeDropdown from "./ModeDropdown";
 
 type SplitMode = "single" | "fixed" | "custom";
@@ -33,6 +34,7 @@ export default function ToolLayout({
   const [zipBlob, setZipBlob] = useState<Blob | null>(null);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { openFeedback } = useFeedback();
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -101,6 +103,7 @@ export default function ToolLayout({
     setCustomRanges([{ id: "1", from: 1, to: 3 }]);
     setFixedRange(2);
     setMode("single");
+    openFeedback("Split PDF");
   };
 
   const openFilePicker = () => {
