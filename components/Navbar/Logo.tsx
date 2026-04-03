@@ -164,7 +164,7 @@ const Logo = () => {
 
       {/* Brand name centered below icon */}
       <span className="text-[1.4rem] font-black tracking-wide leading-none">
-        <span className="text-[#1e3a8a]">pagely</span>
+        <span className="text-[#1e3a8a]">Pagely</span>
         <span className="text-[#dc2626]">PDF</span>
       </span>
     </div>

@@ -21,14 +21,14 @@ const MobileNav = ({ showNav, closeNav }: props) => {
       >
         {navLinks.map((link) => {
           return (
-            <Link href={link.url} key={link.id}>
+            <Link href={link.url} key={link.id} onClick={closeNav}>
               <p className="text-white w-fit text-[20px] ml-12 border-b-[1.5px] pb-1 border-white sm:text-[30px]">
                 {link.lable}
               </p>
             </Link>
           );
         })}
-        <MobileToolsDropdown />
+        <MobileToolsDropdown closeNav={closeNav} />
         <CgClose
           onClick={closeNav}
           className="absolute top-[0.7rem] right-[1.4rem] sm:w-8 sm:h-8 w-6 h-6"

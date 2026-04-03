@@ -33,7 +33,7 @@ const ToolsDropdown = () => {
       </button>
       {open && (
         <div
-          className="absolute top-full right-0 mt-4 w-130 max-w-[95vw]
+          className="absolute top-15 right-0 mt-4 w-130 max-w-[95vw]
           bg-white shadow-xl rounded-xl p-6 grid grid-cols-3 gap-6"
         >
           {pdfToolSections.map((section) => (

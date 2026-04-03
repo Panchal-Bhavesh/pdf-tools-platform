@@ -68,7 +68,7 @@ export default function HomeClient() {
         <h2 className="text-xl text-gray-900 font-semibold mb-3">
           All-in-one PDF tools platform
         </h2>
-        <p className="mt-3 font-medium text-gray-700">
+        <p className="mt-3 font-medium text-base sm:text-lg text-justify text-gray-700">
           PagelyPDF provides a complete collection of free online PDF tools to
           help you work with documents easily. Whether you want to merge PDF
           files, extract pages, convert PDF to images or protect documents with

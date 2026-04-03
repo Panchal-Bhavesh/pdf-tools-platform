@@ -15,8 +15,8 @@ const Nav = ({ openNav }: props) => {
 
   useEffect(() => {
     const handler = () => {
-      if (window.scrollY >= 90) setNavbg(true);
-      if (window.scrollY < 90) setNavbg(false);
+      if (window.scrollY >= 10) setNavbg(true);
+      else setNavbg(false);
     };
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
@@ -24,8 +24,8 @@ const Nav = ({ openNav }: props) => {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all ${
-        navbg ? "bg-white shadow-md" : "bg-transparent"
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white ${
+        navbg ? "shadow-md" : ""
       }`}
     >
       <div className="container h-24 mx-auto flex items-center px-0">
