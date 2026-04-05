@@ -54,9 +54,9 @@ export default function FeedbackModal({ open, onClose, tool }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 z-[3000] flex items-end sm:items-center justify-center">
+    <div className="fixed inset-0 z-3000 flex items-end sm:items-center justify-center">
       <div onClick={handleClose} className="absolute inset-0 bg-black/50" />
-      <div className="relative w-full sm:w-auto sm:min-w-[420px] bg-white rounded-t-2xl sm:rounded-2xl p-6 z-[3100] shadow-2xl">
+      <div className="relative w-full sm:w-auto sm:min-w-[420px] bg-white rounded-t-2xl sm:rounded-2xl p-6 z-3100 shadow-2xl">
         {submitted ? (
           <div className="text-center py-6">
             <p className="text-4xl mb-3">🎉</p>

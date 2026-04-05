@@ -13,7 +13,7 @@ export default function ContactModal({ open, onClose }: Props) {
   return (
     <div className="fixed inset-0 z-2000 flex items-center justify-center">
       <div onClick={onClose} className="absolute inset-0 bg-black/60" />
-      <div className="relative w-[90%] max-w-lg bg-white rounded-2xl p-6 z-2100">
+      <div className="relative w-[90%] max-w-lg bg-white rounded-2xl p-6 z-2100 max-h-[90vh] overflow-y-auto">
         <CgClose
           onClick={onClose}
           className="absolute top-4 right-4 w-6 h-6 cursor-pointer text-gray-600"

@@ -39,7 +39,7 @@ export default function InstallPrompt() {
   if (!visible) return null;
 
   return (
-    <div style={{ position: "fixed", right: 16, bottom: 24, zIndex: 9999 }}>
+    <div style={{ position: "fixed", left: 16, bottom: 24, zIndex: 999 }}>
       <button
         onClick={handleInstallClick}
         style={{
