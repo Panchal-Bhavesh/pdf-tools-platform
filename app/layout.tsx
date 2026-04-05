@@ -22,6 +22,11 @@ export const metadata: Metadata = {
   description:
     "PagelyPDF is a modern free PDF tools platform to merge PDF, split PDF, convert PDF to JPG, compress and protect PDF files online.",
   keywords: [
+    "PagelyPDF",
+    "pagelyPDF",
+    "pagelypdf",
+    "pagely pdf",
+    "pagely PDF tools",
     "pdf tools",
     "merge pdf online",
     "split pdf",
@@ -38,6 +43,7 @@ export const metadata: Metadata = {
     "pdf to excel",
   ],
   metadataBase: new URL("https://pagelypdf.vercel.app"),
+  applicationName: "PagelyPDF",
   manifest: "/manifest.json",
   icons: {
     icon: "/logo.png",
