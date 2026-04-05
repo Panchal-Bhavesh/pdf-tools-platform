@@ -37,10 +37,12 @@ export const metadata: Metadata = {
     "pdf to word",
     "pdf to excel",
   ],
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://pagelypdf.com",
-  ),
+  metadataBase: new URL("https://pagelypdf.vercel.app"),
   manifest: "/manifest.json",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
