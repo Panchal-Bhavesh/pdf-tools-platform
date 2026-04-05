@@ -2,37 +2,38 @@
 import { useEffect, useState } from "react";
 
 export default function InstallPrompt() {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  interface BeforeInstallPromptEvent extends Event {
+    prompt: () => Promise<void>;
+    userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+  }
+
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    function onBeforeInstallPrompt(e: any) {
+    const isMobile = window.innerWidth < 768;
+    if (!isMobile) return;
+
+    function onBeforeInstallPrompt(e: Event) {
       e.preventDefault();
-      setDeferredPrompt(e);
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
       setVisible(true);
     }
 
-    window.addEventListener(
-      "beforeinstallprompt",
-      onBeforeInstallPrompt as EventListener,
-    );
+    window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
 
     return () => {
-      window.removeEventListener(
-        "beforeinstallprompt",
-        onBeforeInstallPrompt as EventListener,
-      );
+      window.removeEventListener("beforeinstallprompt", onBeforeInstallPrompt);
     };
   }, []);
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
-    deferredPrompt.prompt();
+    await deferredPrompt.prompt();
     const choice = await deferredPrompt.userChoice;
     setVisible(false);
     setDeferredPrompt(null);
-    // optional: log the outcome
-    console.log("PWA install choice:", choice);
+    console.log("PWA install choice:", choice.outcome);
   };
 
   if (!visible) return null;
