@@ -8,7 +8,8 @@ export default function InstallPrompt() {
   }
 
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [visible, setVisible] = useState(false);
+  const [promptReady, setPromptReady] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
@@ -17,13 +18,19 @@ export default function InstallPrompt() {
     function onBeforeInstallPrompt(e: Event) {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
-      setVisible(true);
+      setPromptReady(true);
+    }
+
+    function onScroll() {
+      setScrolled(window.scrollY > 300);
     }
 
     window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
+    window.addEventListener("scroll", onScroll);
 
     return () => {
       window.removeEventListener("beforeinstallprompt", onBeforeInstallPrompt);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
@@ -31,12 +38,12 @@ export default function InstallPrompt() {
     if (!deferredPrompt) return;
     await deferredPrompt.prompt();
     const choice = await deferredPrompt.userChoice;
-    setVisible(false);
+    setPromptReady(false);
     setDeferredPrompt(null);
     console.log("PWA install choice:", choice.outcome);
   };
 
-  if (!visible) return null;
+  if (!promptReady || !scrolled) return null;
 
   return (
     <div style={{ position: "fixed", left: 16, bottom: 24, zIndex: 999 }}>
