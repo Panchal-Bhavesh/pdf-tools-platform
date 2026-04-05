@@ -24,26 +24,44 @@ export default function Footer() {
             <span>by PagelyPDF — simplifying your PDF workflow.</span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4">
             <button
               onClick={() => setOpenTerms(true)}
               className="text-sm text-gray-400 hover:text-white transition cursor-pointer"
             >
               Terms &amp; Conditions
             </button>
-            <span className="text-gray-600">|</span>
+            <span className="text-gray-600">·</span>
             <button
               onClick={() => openFeedback()}
               className="text-sm text-gray-400 hover:text-white transition cursor-pointer"
             >
               Feedback
             </button>
-            <span className="text-gray-600">|</span>
+            <span className="text-gray-600">·</span>
             <button
               onClick={() => setOpenContact(true)}
               className="text-sm text-gray-400 hover:text-white transition cursor-pointer"
             >
               Contact Us
+            </button>
+            <span className="text-gray-600">·</span>
+            <button
+              onClick={() => {
+                if (navigator.share) {
+                  navigator.share({
+                    title: "PagelyPDF – Free PDF Tools",
+                    text: "Check out PagelyPDF! Free online tools to merge, split, convert and protect PDF files.",
+                    url: "https://pagelypdf.vercel.app",
+                  });
+                } else {
+                  navigator.clipboard.writeText("https://pagelypdf.vercel.app");
+                  alert("Link copied to clipboard!");
+                }
+              }}
+              className="text-sm text-gray-400 hover:text-white transition cursor-pointer"
+            >
+              Share App
             </button>
           </div>
         </div>
