@@ -13,39 +13,39 @@ export default function Footer() {
   return (
     <>
       <footer className="w-full bg-[#0B0F1A] border-t border-white/10 mt-24">
-        <div className="container py-10 flex flex-col md:flex-row gap-4 justify-between items-center mx-auto">
-          <p className="text-sm text-gray-400">
+        <div className="container py-8 sm:py-10 flex flex-col lg:flex-row gap-5 lg:gap-4 justify-between items-center mx-auto">
+          <p className="text-sm text-gray-400 text-center lg:text-left shrink-0">
             © {new Date().getFullYear()} PagelyPDF. All rights reserved.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 text-sm text-gray-400">
-            <span>Made with</span>
-            <FaHeart className="text-pink-500 animate-pulse" />
-            <span>by PagelyPDF — simplifying your PDF workflow.</span>
+          <div className="flex flex-col items-center text-sm text-gray-400 text-center">
+            <div className="flex flex-row items-center gap-1">
+              <span>Made with</span>
+              <FaHeart className="text-pink-500 animate-pulse" />
+              <span>by PagelyPDF</span>
+            </div>
+            <span>simplifying your PDF workflow.</span>
           </div>
 
-          <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4">
+          <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 shrink-0 lg:justify-end">
             <button
               onClick={() => setOpenTerms(true)}
               className="text-sm text-gray-400 hover:text-white transition cursor-pointer"
             >
               Terms &amp; Conditions
             </button>
-            <span className="text-gray-600">·</span>
             <button
               onClick={() => openFeedback()}
               className="text-sm text-gray-400 hover:text-white transition cursor-pointer"
             >
               Feedback
             </button>
-            <span className="text-gray-600">·</span>
             <button
               onClick={() => setOpenContact(true)}
               className="text-sm text-gray-400 hover:text-white transition cursor-pointer"
             >
               Contact Us
             </button>
-            <span className="text-gray-600">·</span>
             <button
               onClick={() => {
                 if (navigator.share) {

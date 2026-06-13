@@ -2,8 +2,20 @@
 
 .container {
   max-width: 100%;
-  width: 81.25vw;
+  width: 92%;
   margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .container {
+    width: 88%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    width: 81.25%;
+  }
 }
 
 html {

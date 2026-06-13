@@ -40,24 +40,26 @@ export default function HomeClient() {
           </button>
         ))}
       </section>
-      <section className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-12">
+      <section className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 mt-12">
         {filteredTools.map((tool) => {
           const Icon = tool.icon;
           return (
             <Link
               key={tool.name}
               href={tool.path}
-              className="p-6 rounded-2xl border border-gray-400 hover:shadow-xl hover:scale-[1.02] transition-transform bg-white "
+              className="p-4 sm:p-5 md:p-6 rounded-2xl border border-gray-400 hover:shadow-xl hover:scale-[1.02] active:scale-[1.02] transition-transform bg-white"
             >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-blue-600/15">
-                  <Icon className={`${tool.color} text-xl`} />
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-blue-600/15 shrink-0">
+                  <Icon className={`${tool.color} text-base sm:text-xl`} />
                 </div>
-                <div>
-                  <h2 className="text-lg font-semibold text-gray-800">
+                <div className="min-w-0">
+                  <h2 className="text-base sm:text-lg font-semibold text-gray-800 leading-snug">
                     {tool.name}
                   </h2>
-                  <p className="text-sm text-gray-500">{tool.desc}</p>
+                  <p className="text-xs sm:text-sm text-gray-500 mt-0.5 leading-snug">
+                    {tool.desc}
+                  </p>
                 </div>
               </div>
             </Link>
@@ -68,7 +70,7 @@ export default function HomeClient() {
         <h2 className="text-xl text-gray-900 font-semibold mb-3">
           All-in-one PDF tools platform
         </h2>
-        <p className="mt-3 font-medium text-base sm:text-lg text-justify text-gray-700">
+        <p className="mt-3 font-medium text-base sm:text-lg text-left sm:text-justify text-gray-700">
           PagelyPDF provides a complete collection of free online PDF tools to
           help you work with documents easily. Whether you want to merge PDF
           files, extract pages, convert PDF to images or protect documents with
