@@ -1,5 +1,5 @@
 "use client";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaFilePdf } from "react-icons/fa";
 import ContactModal from "./ContactModal";
 import TermsModal from "./TermsModal";
 import { useFeedback } from "./FeedbackProvider";
@@ -12,37 +12,43 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="w-full bg-[#0B0F1A] border-t border-white/10 mt-24">
+      <footer className="w-full bg-[#0B0F1A] mt-14">
+        <div className="h-0.75 w-full bg-linear-to-r from-[#0c3e78] via-[#6366f1] to-[#dc2626]" />
+
         <div className="container py-8 sm:py-10 flex flex-col lg:flex-row gap-5 lg:gap-4 justify-between items-center mx-auto">
-          <p className="text-sm text-gray-400 text-center lg:text-left shrink-0">
-            © {new Date().getFullYear()} PagelyPDF. All rights reserved.
-          </p>
+          <div className="flex flex-col items-center lg:items-start gap-1.5 shrink-0">
+            <p className="text-xs text-gray-500 text-center lg:text-left">
+              © {new Date().getFullYear()} PagelyPDF. All rights reserved.
+            </p>
+          </div>
 
           <div className="flex flex-col items-center text-sm text-gray-400 text-center">
-            <div className="flex flex-row items-center gap-1">
+            <div className="flex flex-row items-center gap-1.5">
               <span>Made with</span>
               <FaHeart className="text-pink-500 animate-pulse" />
               <span>by PagelyPDF</span>
             </div>
-            <span>simplifying your PDF workflow.</span>
+            <span className="text-gray-500 text-xs mt-0.5">
+              simplifying your PDF workflow.
+            </span>
           </div>
 
-          <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 shrink-0 lg:justify-end">
+          <div className="flex flex-wrap justify-center lg:justify-end items-center gap-x-4 gap-y-2 shrink-0">
             <button
               onClick={() => setOpenTerms(true)}
-              className="text-sm text-gray-400 hover:text-white transition cursor-pointer"
+              className="text-sm text-gray-400 hover:text-white transition-colors duration-150 cursor-pointer"
             >
               Terms &amp; Conditions
             </button>
             <button
               onClick={() => openFeedback()}
-              className="text-sm text-gray-400 hover:text-white transition cursor-pointer"
+              className="text-sm text-gray-400 hover:text-white transition-colors duration-150 cursor-pointer"
             >
               Feedback
             </button>
             <button
               onClick={() => setOpenContact(true)}
-              className="text-sm text-gray-400 hover:text-white transition cursor-pointer"
+              className="text-sm text-gray-400 hover:text-white transition-colors duration-150 cursor-pointer"
             >
               Contact Us
             </button>
@@ -59,7 +65,7 @@ export default function Footer() {
                   alert("Link copied to clipboard!");
                 }
               }}
-              className="text-sm text-gray-400 hover:text-white transition cursor-pointer"
+              className="text-sm text-gray-400 hover:text-white transition-colors duration-150 cursor-pointer"
             >
               Share App
             </button>

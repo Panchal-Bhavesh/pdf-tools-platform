@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .container {
-  max-width: 100%;
+  max-width: 1400px;
   width: 92%;
   margin: 0 auto;
 }
@@ -26,6 +26,25 @@ html {
 body {
   overflow-x: hidden;
   min-height: 100vh;
+}
+
+::selection {
+  background-color: #0c3e78;
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0c3e78;
 }
 
 .lenis.lenis-smooth {
